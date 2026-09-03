@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hootenanny{% endblock %}</title>
+
+    <!--
+        Tailwind CSS via the "Play CDN" build. This is fine for development
+        and for a small project like this one, but it compiles Tailwind's
+        entire style engine in the browser on every page load and warns
+        against production use. If this project grows, switch to the CLI
+        build (`npx tailwindcss -i input.css -o app/static/css/tailwind.css`)
+        instead — see https://tailwindcss.com/docs/installation for details.
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Project-specific overrides that don't belong in Tailwind's utility classes -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+    {% include "partials/nav.html" %}
+
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

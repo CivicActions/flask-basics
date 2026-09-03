@@ -1,0 +1,17 @@
+{#
+    Renders a DB-backed Page (app/models/page.py), looked up by slug.
+    Used by the `/p/<slug>` route in app/main/routes.py.
+
+    SECURITY NOTE: `page.body` is rendered with the `|safe` filter, which
+    disables Jinja's automatic HTML escaping. That's intentional here —
+    page bodies are meant to contain HTML markup — but it means anyone who
+    can write to the `pages` table can inject arbitrary HTML/JS. Only wire
+    this up to trusted input (e.g. an admin-only editing route) unless you
+    add a markup sanitizer (e.g. bleach) in front of it first.
+#}
+{% extends "index.html" %}
+{% set page_title = page.title %}
+
+{% block page_content %}
+{{ page.body | safe }}
+{% endblock %}

@@ -1,0 +1,27 @@
+{#
+    Template for simple, static content pages (About, Terms, Contact, etc.).
+
+    Usage — a static page extends this file instead of base.html directly,
+    sets `page_title`, and fills in `page_content`:
+
+        {% extends "index.html" %}
+        {% set page_title = "About" %}
+        {% block page_content %}
+            <p>Your static HTML content goes here.</p>
+        {% endblock %}
+
+    This keeps every static page consistent (same heading style, same
+    max-width reading container) without repeating that markup in each one.
+    Pages with actual app logic (forms, data from the database, etc.) should
+    extend base.html directly instead of this file.
+#}
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - Hootenanny{% endblock %}
+
+{% block content %}
+<article class="prose prose-slate max-w-none">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ page_title }}</h1>
+    {% block page_content %}{% endblock %}
+</article>
+{% endblock %}

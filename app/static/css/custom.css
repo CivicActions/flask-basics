@@ -1,0 +1,8 @@
+/*
+ * Project-specific CSS that doesn't belong as Tailwind utility classes.
+ * Tailwind itself is loaded via the CDN script in app/templates/base.html.
+ */
+
+.logo {
+    height: 100%;
+}
