@@ -8,7 +8,6 @@ explain not just *what* to run, but *why* the project is structured the way it i
 - **[Flask](https://flask.palletsprojects.com/)** — web framework
 - **[SQLAlchemy](https://www.sqlalchemy.org/)** (via Flask-SQLAlchemy) — ORM / database access
 - **[Flask-Migrate](https://flask-migrate.readthedocs.io/)** (Alembic) — database schema migrations
-- **[Marshmallow](https://marshmallow.readthedocs.io/)** + **[flask-marshmallow](https://flask-marshmallow.readthedocs.io/)** + **marshmallow-sqlalchemy** — request/response validation and serialization
 - **[Flask-WTF](https://flask-wtf.readthedocs.io/)** — HTML form handling/CSRF
 - **[pytest](https://docs.pytest.org/)** — test runner
 - **[uv](https://docs.astral.sh/uv/)** — dependency management + running commands (this repo does not use plain `pip`/`venv` directly)
@@ -94,7 +93,7 @@ in [`docs/`](./docs/):
 | [`docs/configuration.md`](docs/configuration.md) | `.env` vs `.flaskenv` vs `config.py` — what goes where and why                                              |
 | [`docs/adding-routes.md`](docs/adding-routes.md) | How to add a route to an existing blueprint, or create a new one                                            |
 | [`docs/templates.md`](docs/templates.md)         | Base layout, nav/footer partials, and how the static-page template works                                    |
-| [`docs/adding-models.md`](docs/adding-models.md) | How to add a SQLAlchemy model (and a Marshmallow schema for it)                                             |
+| [`docs/adding-models.md`](docs/adding-models.md) | How to add a SQLAlchemy model                                                                               |
 | [`docs/database.md`](docs/database.md)           | Where the DB lives per environment, and the Flask-Migrate/Alembic workflow for schema changes               |
 | [`docs/testing.md`](docs/testing.md)             | How to write tests, the fixtures available, and a real gotcha about shared SQLAlchemy metadata across tests |
 

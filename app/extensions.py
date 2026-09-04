@@ -1,4 +1,3 @@
-from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
@@ -18,11 +17,7 @@ class Base(DeclarativeBase):
     """
 
 
-# Instantiated without an app so they can be bound later via init_app(),
+# Instantiated without an app so it can be bound later via init_app(),
 # which avoids circular imports between extensions and blueprints.
-# NOTE: init order matters at bind time — SQLAlchemy must be init_app()'d
-# before Marshmallow (see create_app()) so flask-marshmallow's optional
-# SQLAlchemy integration (SQLAlchemyAutoSchema) can find the db extension.
 dbase = SQLAlchemy(model_class=Base)
-marsh = Marshmallow()
 migrate = Migrate()

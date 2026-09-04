@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from flask import Flask
 
 from app.config import config
-from app.extensions import dbase, marsh, migrate
+from app.extensions import dbase, migrate
 
 
 def create_app(config_name=None):
@@ -16,10 +16,7 @@ def create_app(config_name=None):
     # Ensure the instance folder exists so the default sqlite file can be created.
     os.makedirs(app.instance_path, exist_ok=True)
 
-    # Order matters: SQLAlchemy must be initialized before Marshmallow so
-    # flask-marshmallow's SQLAlchemy integration (SQLAlchemyAutoSchema) works.
     dbase.init_app(app)
-    marsh.init_app(app)
     migrate.init_app(app, dbase)
 
     from app.main import bp as main_bp

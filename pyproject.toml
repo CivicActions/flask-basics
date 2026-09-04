@@ -5,12 +5,9 @@ requires-python = ">=3.14"
 dependencies = [
     "alembic>=1.19.1",
     "flask>=3.1.3",
-    "flask-marshmallow>=1.5.0",
     "flask-migrate>=4.1.0",
     "flask-sqlalchemy>=3.1.1",
     "flask-wtf>=1.3.0",
-    "marshmallow>=4.3.1",
-    "marshmallow-sqlalchemy>=1.5.0",
     "python-dotenv>=1.2.3",
 ]
 

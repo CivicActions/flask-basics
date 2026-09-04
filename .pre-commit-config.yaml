@@ -30,12 +30,9 @@ repos:
           [
             "alembic",
             "flask",
-            "flask_marshmallow",
             "flask_migrate",
             "flask_sqlalchemy",
             "flask_wtf",
-            "marshmallow",
-            "marshmallow_sqlalchemy",
             "python-dotenv",
             "pytest",
           ]

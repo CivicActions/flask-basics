@@ -1,7 +1,4 @@
-from marshmallow import ValidationError
-import pytest
-
-from app.models.page import Page, page_schema
+from app.models.page import Page
 
 
 def test_page_model_create_query(db):
@@ -12,22 +9,6 @@ def test_page_model_create_query(db):
     assert page is not None
     assert page.title == "Hello"
     assert page.created_at is not None
-
-
-def test_page_schema_dump(db):
-    page = Page(slug="about-us", title="About Us", body="<p>Content</p>")
-    db.session.add(page)
-    db.session.commit()
-
-    data = page_schema.dump(page)
-    assert data["slug"] == "about-us"
-    assert data["title"] == "About Us"
-    assert "id" in data
-
-
-def test_page_schema_rejects_invalid_slug(db):
-    with pytest.raises(ValidationError):
-        page_schema.load({"slug": "Not A Valid Slug!", "title": "x", "body": ""})
 
 
 def test_show_page_route_returns_200(client, db):

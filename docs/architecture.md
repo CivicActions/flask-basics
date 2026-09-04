@@ -35,7 +35,7 @@ Instead, we define a **function** that builds and returns a configured app:
 def create_app(config_name=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config[config_name])
-    db.init_app(app)
+    dbase.init_app(app)
     app.register_blueprint(main_bp)
     return app
 ```
@@ -49,7 +49,7 @@ script — calls `create_app()` and gets a fully wired instance.
 app/
 ├── __init__.py       # create_app() factory — the only place that assembles everything
 ├── config.py         # Config classes (Development/Testing/Production)
-├── extensions.py     # Unbound extension instances (db, ma)
+├── extensions.py     # Unbound extension instances (dbase, migrate) + the shared Base class
 ├── app.py            # Thin entrypoint: `app = create_app()`, used by `python app/app.py`
 ├── main/              # Example blueprint
 │   ├── __init__.py    # Blueprint("main", __name__)
@@ -67,7 +67,7 @@ classes.
 
 ### `extensions.py`
 
-Extension objects (`db = SQLAlchemy()`, `ma = Marshmallow()`) are created
+Extension objects (`dbase = SQLAlchemy(model_class=Base)`) are created
 **without** an app attached, then bound later inside `create_app()` via
 `.init_app(app)`.
 
@@ -77,9 +77,11 @@ to import `app/__init__.py` (which imports `extensions.py`) — i.e., it avoids
 a circular import. Any new extension you add (e.g., a login manager, a mail
 client) should follow the same pattern.
 
-Note the init order in `create_app()`: `db.init_app(app)` runs **before**
-`ma.init_app(app)` — flask-marshmallow's SQLAlchemy integration
-(`SQLAlchemyAutoSchema`) depends on the db extension already being bound.
+`extensions.py` also defines `Base(DeclarativeBase)` and passes it to
+`SQLAlchemy(model_class=Base)`. Flask-SQLAlchemy's `dbase.Model` is assigned
+dynamically at runtime, which mypy can't resolve as a base class — `Base` is
+the same declarative base at runtime, but statically typed, so models should
+subclass `Base` (see `app/models/base.py`), not `dbase.Model`.
 
 ### `main/` (blueprints)
 
@@ -104,10 +106,9 @@ at. All the actual construction logic lives in the factory, not here.
 
 `create_app()` builds the app once at startup → Flask routes an incoming
 request to the matching blueprint route function → that function talks to
-`db.session` (SQLAlchemy) to read/write data → optionally serializes results
-with a `ma.SQLAlchemyAutoSchema` (flask-marshmallow + marshmallow-sqlalchemy)
-→ returns a response.
+`dbase.session` (SQLAlchemy) to read/write data → the route renders a Jinja
+template with the model instance directly → returns a response.
 
 Schema changes (adding/altering a model) go through **Flask-Migrate/Alembic**
-(`migrations/`), not `db.create_all()` — see [`database.md`](database.md)
+(`migrations/`), not `dbase.create_all()` — see [`database.md`](database.md)
 for the migration workflow.

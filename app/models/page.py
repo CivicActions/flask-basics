@@ -1,9 +1,6 @@
-from marshmallow import fields, validate
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.extensions import dbase
 from app.models.base import BaseModel
 
 
@@ -24,17 +21,3 @@ class Page(BaseModel):
 
     def __repr__(self) -> str:
         return f"<Page {self.id} {self.slug!r}>"
-
-
-class PageSchema(SQLAlchemyAutoSchema):
-    class Meta:
-        model = Page
-        load_instance = True
-        sqla_session = dbase.session
-
-    slug = fields.String(validate=validate.Regexp(r"^[a-z0-9-]+$"))
-    title = fields.String(validate=validate.Length(min=1, max=120))
-
-
-page_schema = PageSchema()
-pages_schema = PageSchema(many=True)
