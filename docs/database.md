@@ -109,9 +109,9 @@ chaining style where practical:
 ```python
 from sqlalchemy import select
 from app.extensions import dbase
-from app.models.page import Page
+from app.models.post import Post
 
-stmt = select(Page).where(Page.slug == "about")
+stmt = select(Post).where(Post.slug == "about")
 page = dbase.session.scalars(stmt).first()
 ```
 

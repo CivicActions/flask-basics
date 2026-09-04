@@ -2,7 +2,7 @@ def test_index_returns_home_page(client):
     response = client.get("/")
 
     assert response.status_code == 200
-    assert "Hootenanny Homepage" in response.text
+    assert "Flask Basics" in response.text
 
 
 def test_static_route_registered(app):

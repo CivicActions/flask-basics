@@ -33,7 +33,7 @@ class Note(Base):
 
 If your model just needs `id`/`created_at`/`updated_at` and nothing else
 special, inherit from `app.models.base.BaseModel` instead of `Base` directly
-— see `app/models/page.py` for a real example.
+— see `../app/models/post.py` for a real example.
 
 Notes on the style used here (SQLAlchemy 2.0):
 - `Mapped[type]` + `mapped_column(...)` is the modern, type-checked way to

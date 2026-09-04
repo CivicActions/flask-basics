@@ -23,19 +23,19 @@ via `index.html`). It defines the `<html>`/`<head>`/`<body>` skeleton, pulls
 in Tailwind, includes the nav and footer partials, and exposes these blocks
 for child templates to override:
 
-| Block | Purpose |
-|---|---|
-| `title` | `<title>` tag content |
-| `head` | Extra `<head>` content (e.g. a page-specific `<meta>` tag) |
-| `content` | The main page body |
-| `scripts` | Extra `<script>` tags, placed at the end of `<body>` |
+| Block     | Purpose                                                    |
+|-----------|------------------------------------------------------------|
+| `title`   | `<title>` tag content                                      |
+| `head`    | Extra `<head>` content (e.g. a page-specific `<meta>` tag) |
+| `content` | The main page body                                         |
+| `scripts` | Extra `<script>` tags, placed at the end of `<body>`       |
 
 A route that needs full control over its layout (a dashboard, a form page,
 etc.) should extend `base.html` directly:
 
 ```jinja
 {% extends "base.html" %}
-{% block title %}Dashboard - Hootenanny{% endblock %}
+{% block title %}Dashboard - Flask Basics{% endblock %}
 {% block content %}
     <h1>Dashboard</h1>
     ...
@@ -96,14 +96,14 @@ same max-width) without copy-pasting that markup into each one.
   fit a single heading + article block → extend `base.html` directly instead.
 
 See `app/templates/pages/about.html` (hardcoded content) and
-`app/templates/pages/dynamic.html` (renders a `Page` model row) — both used
+`../app/templates/pages/post.html` (renders a `Post` model row) — both used
 by routes in `app/main/routes.py` — for complete, working examples.
 
 ## Adding a new static page
 
 1. Create `app/templates/pages/<name>.html`, extending `index.html` (copy
    `about.html` as a starting point for hardcoded content, or
-   `dynamic.html` if it should pull content from the database).
+   `post.html` if it should pull content from the database).
 2. Add a route that renders it — see
    [`adding-routes.md`](adding-routes.md):
    ```python

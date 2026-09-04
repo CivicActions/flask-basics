@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from app.extensions import dbase
 from app.main import bp
-from app.models.page import Page
+from app.models.post import Post
 
 
 @bp.route("/")
@@ -16,9 +16,9 @@ def about():
     return render_template("pages/about.html")
 
 
-@bp.route("/p/<slug>")
+@bp.route("/post/<slug>")
 def show_page(slug):
-    page = dbase.session.execute(select(Page).filter_by(slug=slug)).scalar_one_or_none()
+    page = dbase.session.execute(select(Post).filter_by(slug=slug)).scalar_one_or_none()
     if page is None:
         abort(404)
-    return render_template("pages/dynamic.html", page=page)
+    return render_template("pages/post.html", page=page)

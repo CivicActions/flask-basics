@@ -2,12 +2,22 @@
 {% set page_title = "Home" %}
 
 {% block page_content %}
+<p class="text-gray-700 leading-relaxed mt-4">Flask Basics</p>
 <div class="max-md rounded-lg overflow-hidden shadow-lg bg-white">
   <div class="p-6">
-    <h2 class="text-xl font-semibold text-gray-900 mb-2">Hootenanny Homepage</h2>
-    <p class="text-gray-600 text-base mb-4">
-        This page is rendered using the /app/templates/pages/home.html template.
-    </p>
+    <table class="w-full text-md text-left rtl:text-right text-body mt-10">
+        <caption>Page information</caption>
+        <tbody>
+            <tr class="border-b border-default">
+                <td class="px-6 py-4">Route</td>
+                <td class="px-6 py-4"><code>app.main.routes.home_page</code></td>
+            </tr>
+            <tr class="border-b border-default">
+                <td class="px-6 py-4">Template</td>
+                <td class="px-6 py-4"><code>app.templates.pages.home</code></td>
+            </tr>
+        </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}

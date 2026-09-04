@@ -1,7 +1,15 @@
-# Hootenanny
+# Flask Basics
 
-A Flask application for coordinating the CA's Summit Hootenanny.This README (and the docs it links to) is meant to
-explain not just *what* to run, but *why* the project is structured the way it is.
+A basic Flask application for understanding foundational Flask concepts.This README (and the docs it links to) is meant
+to explain not just *what* to run, but *why* the project is structured the way it is. Working on this application
+should provide you with an understanding of Flask concepts such as:
+
+- **Flask fundamentals**: Request/response cycle, blueprints, and Flask's extension system.
+- **SQLAlchemy fundamentals**: Data modeling, session lifecycle and transaction management, query construction with the
+  ORM.
+- **Data migrations (Alembic)**: Updating databases, and record values when changes are made to the database schema via
+  changes to the data models.
+- **Jinja2 template engine**: Variable substitution, control structures, template inheritances, autoescaping, and more.
 
 ## Stack
 
@@ -155,11 +163,11 @@ steps:
 
 - **`SECRET_KEY` defaults to `"dev"`** if `.env` doesn't set one — fine for local development, not fine for anything
   production.
-- **Only one blueprint (`main`) and one real model (`Page`)** — a good next exercise is adding a second model/blueprint
+- **Only one blueprint (`main`) and one real model (`Post`)** — a good next exercise is adding a second model/blueprint
   pair following the same pattern (see [`docs/adding-models.md`](docs/adding-models.md) and
   [`docs/adding-routes.md`](docs/adding-routes.md)).
 - **`Page.body` is rendered with Jinja's `|safe` filter** (raw HTML, no escaping) — fine for trusted/admin-authored
   content, a real risk if this ever accepts page content from untrusted users without sanitization. See the note in
-  `app/templates/pages/dynamic.html`.
-- **No admin UI for creating `Page` rows** — pages are currently created via `flask shell` or a script; a form-based
+  `app/templates/pages/post.html`.
+- **No admin UI for creating `Post` rows** — pages are currently created via `flask shell` or a script; a form-based
   create/edit route (Flask-WTF is already a dependency for this) is a natural next feature.
