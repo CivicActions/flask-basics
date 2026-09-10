@@ -11,6 +11,14 @@ def test_page_model_create_query(db):
     assert page.created_at is not None
 
 
+def test_page_model_auto_generates_slug_from_title(db):
+    page = Post(title="Hello World!", body="<p>Hi</p>")
+    db.session.add(page)
+    db.session.commit()
+
+    assert page.slug == "hello-world"
+
+
 def test_show_page_route_returns_200(client, db):
     db.session.add(Post(slug="hello", title="Hello Page", body="<p>Body text</p>"))
     db.session.commit()

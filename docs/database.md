@@ -21,9 +21,9 @@ add a table.
 
 ```bash
 uv run flask shell
->>> from app.extensions import db
+>>> from app.extensions import dbase
 >>> from sqlalchemy import inspect
->>> inspect(db.engine).get_table_names()
+>>> inspect(dbase.engine).get_table_names()
 ```
 
 Or just use the `sqlite3` CLI directly against `instance/app.db`.

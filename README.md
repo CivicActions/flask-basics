@@ -102,8 +102,10 @@ in [`docs/`](./docs/):
 | [`docs/adding-routes.md`](docs/adding-routes.md) | How to add a route to an existing blueprint, or create a new one                                            |
 | [`docs/templates.md`](docs/templates.md)         | Base layout, nav/footer partials, and how the static-page template works                                    |
 | [`docs/adding-models.md`](docs/adding-models.md) | How to add a SQLAlchemy model                                                                               |
+| [`docs/forms.md`](docs/forms.md)                 | WTForms/Flask-WTF: what they are, CSRF protection, and building a form-backed route                         |
 | [`docs/database.md`](docs/database.md)           | Where the DB lives per environment, and the Flask-Migrate/Alembic workflow for schema changes               |
 | [`docs/testing.md`](docs/testing.md)             | How to write tests, the fixtures available, and a real gotcha about shared SQLAlchemy metadata across tests |
+| [`docs/improvements.md`](docs/improvements.md)   | Running list of known gaps, caveats, and good next-step tasks across the project                            |
 
 **If you only read one doc, read `docs/architecture.md` first** — it explains the app factory pattern that everything
 else assumes you already understand.
