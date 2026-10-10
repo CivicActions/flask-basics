@@ -1,5 +1,8 @@
+from authlib.integrations.flask_client import OAuth
+from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect
 from sqlalchemy.orm import DeclarativeBase
 
 
@@ -21,3 +24,11 @@ class Base(DeclarativeBase):
 # which avoids circular imports between extensions and blueprints.
 dbase = SQLAlchemy(model_class=Base)
 migrate = Migrate()
+login_manager = LoginManager()
+# Unauthenticated hits on @login_required views redirect here.
+login_manager.login_view = "auth.login"
+login_manager.login_message_category = "info"
+# OAuth client registry; the "google" client is registered in create_app()
+# because it needs the client id/secret from app.config.
+oauth = OAuth()
+csrf = CSRFProtect()

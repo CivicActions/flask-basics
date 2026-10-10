@@ -29,9 +29,8 @@ listener). This closes introduces some potential for problems:
 
 ## Forms / CSRF (`docs/forms.md`)
 
-- **`CSRFProtect` is not actually initialized anywhere.** `flask-wtf` is a dependency and `docs/forms.md` documents
-  to wire it up, but `app/extensions.py`/`app/__init__.py` don't do it yet. Any form added today would not have real
-  CSRF protection until this is done.
+- ~~**`CSRFProtect` is not actually initialized anywhere.**~~ Done as part of Google sign-in (see
+  [`docs/authentication.md`](authentication.md)); `TestingConfig` disables it.
 - **No create/edit UI for `Post` exists.** Posts can currently only be created via `flask shell` or a script. A
   `PostForm` (per `docs/forms.md`) backing a real `/post/new` (and `/post/<slug>/edit`) route is the natural next
   feature — and now a good place to also solve the slug-collision problem above, since a form is where a duplicate
@@ -48,3 +47,13 @@ listener). This closes introduces some potential for problems:
 - **Only one blueprint (`main`) and one real model (`Post`)** — adding a second model/blueprint pair (see
   `docs/adding-models.md` and `docs/adding-routes.md`) remains a good exercise for exercising the full add-a-feature
   workflow end-to-end.
+
+## Users / auth (`app/services/users_service.py`)
+
+- **`create_user()` / `update_user()` predate Google sign-in** and don't fit the `User` model: `create_user()` never
+  sets `google_sub` (non-nullable), so it fails with an `IntegrityError` that gets reported as `EmailAlreadyExists`;
+  `update_user()` whitelists `is_active`, which is a read-only property from `UserMixin`. `email` also isn't unique,
+  so `EmailAlreadyExists` can't actually fire. These are unused today — fix or remove before a users admin UI
+  (`app/routes/users_routes.py` is still empty) builds on them.
+- **No authorization.** Any Google account can sign in. Restricting by domain (Google's `hd` claim) or an allowlist,
+  and/or an `is_admin` flag, would be needed before protecting anything sensitive behind `@login_required`.

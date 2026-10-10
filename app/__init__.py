@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from flask import Flask
 
 from app.config import config
-from app.extensions import dbase, migrate
+from app.extensions import csrf, dbase, login_manager, migrate, oauth
 
 
 def create_app(config_name=None):
@@ -18,10 +18,23 @@ def create_app(config_name=None):
 
     dbase.init_app(app)
     migrate.init_app(app, dbase)
+    login_manager.init_app(app)
+    csrf.init_app(app)
+    oauth.init_app(app)
+    # Authlib reads GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET from app.config
+    # (it looks up "<NAME>_CLIENT_ID"), and discovers Google's endpoints and
+    # signing keys from the OpenID Connect metadata URL on first use.
+    oauth.register(
+        name="google",
+        server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
+        client_kwargs={"scope": "openid email profile"},
+    )
 
     from app.main import bp as main_bp
+    from app.routes.auth_routes import bp as auth_bp
 
     app.register_blueprint(main_bp)
+    app.register_blueprint(auth_bp)
 
     @app.context_processor
     def inject_globals():

@@ -17,6 +17,7 @@ should provide you with an understanding of Flask concepts such as:
 - **[SQLAlchemy](https://www.sqlalchemy.org/)** (via Flask-SQLAlchemy) — ORM / database access
 - **[Flask-Migrate](https://flask-migrate.readthedocs.io/)** (Alembic) — database schema migrations
 - **[Flask-WTF](https://flask-wtf.readthedocs.io/)** — HTML form handling/CSRF
+- **[Flask-Login](https://flask-login.readthedocs.io/)** + **[Authlib](https://docs.authlib.org/)** — user sessions, Google sign-in
 - **[pytest](https://docs.pytest.org/)** — test runner
 - **[uv](https://docs.astral.sh/uv/)** — dependency management + running commands (this repo does not use plain `pip`/`venv` directly)
 - **SQLite** — the database, for now (see [`docs/database.md`](docs/database.md))
@@ -103,6 +104,7 @@ in [`docs/`](./docs/):
 | [`docs/templates.md`](docs/templates.md)         | Base layout, nav/footer partials, and how the static-page template works                                    |
 | [`docs/adding-models.md`](docs/adding-models.md) | How to add a SQLAlchemy model                                                                               |
 | [`docs/forms.md`](docs/forms.md)                 | WTForms/Flask-WTF: what they are, CSRF protection, and building a form-backed route                         |
+| [`docs/authentication.md`](docs/authentication.md) | Google sign-in setup, the OAuth flow, and protecting routes with Flask-Login                              |
 | [`docs/database.md`](docs/database.md)           | Where the DB lives per environment, and the Flask-Migrate/Alembic workflow for schema changes               |
 | [`docs/testing.md`](docs/testing.md)             | How to write tests, the fixtures available, and a real gotcha about shared SQLAlchemy metadata across tests |
 | [`docs/improvements.md`](docs/improvements.md)   | Running list of known gaps, caveats, and good next-step tasks across the project                            |
