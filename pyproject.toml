@@ -4,12 +4,15 @@ version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
     "alembic>=1.19.1",
+    "authlib>=1.8.0",
     "flask>=3.1.3",
+    "flask-login>=0.6.3",
     "flask-migrate>=4.1.0",
     "flask-sqlalchemy>=3.1.1",
     "flask-wtf>=1.3.0",
     "python-dotenv>=1.2.3",
     "python-slugify>=9.0.0",
+    "requests>=2.34.2",
 ]
 
 [dependency-groups]
@@ -23,3 +26,8 @@ dev = [
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[[tool.mypy.overrides]]
+# Neither package ships type hints/stubs.
+module = ["flask_login", "flask_wtf"]
+ignore_missing_imports = true

@@ -6,6 +6,15 @@
         <div class="flex gap-6 text-sm font-medium text-gray-600">
             <a href="{{ url_for('main.home_page') }}" class="hover:text-gray-900">Home</a>
             <a href="{{ url_for('main.about') }}" class="hover:text-gray-900">About</a>
+            {% if current_user.is_authenticated %}
+                <span class="text-gray-500">{{ current_user.name or current_user.email }}</span>
+                <form method="post" action="{{ url_for('auth.logout') }}">
+                    {{ logout_form.csrf_token }}
+                    <button type="submit" class="hover:text-gray-900">Sign out</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="hover:text-gray-900">Sign in</a>
+            {% endif %}
         </div>
     </div>
 </nav>
