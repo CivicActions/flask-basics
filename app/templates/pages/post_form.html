@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} New Post - Flask Basics {% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-900 mb-6"> New Post</h1>
+<form method="POST" action="{{url_for('main.new_post')}}" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="mb-4">
+        {{ form.title.label(class="block font-medium mb-1")}}
+        {{ form.title(class="w-full border rounded px-2 py-2")}}
+        {% for error in form.title.errors %}
+        <p class="text-red-600 text-sm">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="mb-4">
+        {{ form.body.label(class="block font-medium mb-1")}}
+        {{ form.body(rows=10, class="w-full border rounded px-3 py-2")}}
+        {% for error in form.body.errors %}
+        <p class="text-red-600 text-sm"> {{ error }}</p>
+        {% endfor %}
+    </div>
+    <button type="submit" class="px-4 py-2 bg-gray-900 text-white rounded">Create post</button>
+</form>
+
+{% endblock %}
